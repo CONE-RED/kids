@@ -104,9 +104,9 @@ async function renderCoverPage(
   }
 
   // Footer branding
-  pdf.setFontSize(10);
+  pdf.setFontSize(9);
   pdf.setTextColor(150, 150, 150);
-  pdf.text("by Dima Levin • linkedin.com/in/leeevind", pageWidth / 2, pageHeight - 8, {
+  pdf.text("by Cone Red AI • by Dima Levin with love • linkedin.com/in/leeevind", pageWidth / 2, pageHeight - 8, {
     align: "center",
   });
 }
@@ -248,9 +248,9 @@ function renderEndPage(
   pdf.setFont("helvetica", "normal");
   pdf.setFontSize(12);
   pdf.setTextColor(150, 150, 150);
-  pdf.text("Created with StoryForge AI", pageWidth / 2, pageHeight - 25, { align: "center" });
-  pdf.setFontSize(10);
-  pdf.text("by Dima Levin • linkedin.com/in/leeevind", pageWidth / 2, pageHeight - 15, {
+  pdf.text("Created with StoryForge AI by Cone Red", pageWidth / 2, pageHeight - 25, { align: "center" });
+  pdf.setFontSize(9);
+  pdf.text("by Dima Levin with love • linkedin.com/in/leeevind • cone.red", pageWidth / 2, pageHeight - 15, {
     align: "center",
   });
 }

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50">
+  <defs>
+    <linearGradient id="triangleGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff3333"/>
+      <stop offset="100%" style="stop-color:#ff6666"/>
+    </linearGradient>
+  </defs>
+  <!-- Red Triangle -->
+  <polygon points="5,45 25,5 45,45" fill="url(#triangleGrad)"/>
+  <!-- Shine effect on triangle -->
+  <polygon points="15,35 25,15 26,16 17,36" fill="rgba(255,255,255,0.3)"/>
+  <!-- CONE RED text -->
+  <text x="55" y="35" font-family="Arial, sans-serif" font-weight="bold" font-size="24" fill="#1a1a1a" letter-spacing="2">CONE RED</text>
+</svg>
