@@ -29,5 +29,5 @@ jobs:
             npm run db:push
             
             npm run build
-            
+            #restart app
             pm2 restart kids-app
