@@ -1,0 +1,241 @@
+{
+  "common": {
+    "continue": "Continue",
+    "back": "Back",
+    "generate": "Generate Story",
+    "download": "Download PDF",
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "tryAgain": "Try Again",
+    "createAnother": "Create Another Story",
+    "home": "Home"
+  },
+  "landing": {
+    "title": "StoryForge AI",
+    "subtitle": "Create magical, personalized stories for your child",
+    "description": "Generate unique, illustrated children's books with embedded life lessons. Powered by AI, crafted with love.",
+    "cta": "Start Creating",
+    "features": {
+      "personalized": {
+        "title": "Personalized",
+        "description": "Your child becomes the hero of the story"
+      },
+      "illustrated": {
+        "title": "Illustrated",
+        "description": "Beautiful, consistent character art throughout"
+      },
+      "educational": {
+        "title": "Educational",
+        "description": "Sneaky life lessons wrapped in fun adventures"
+      }
+    }
+  },
+  "setup": {
+    "title": "Set Up Your Magic Wand",
+    "subtitle": "Get your free Gemini API key in 2 minutes",
+    "step1": {
+      "title": "Go to Google AI Studio",
+      "description": "Click the link below to open Google AI Studio"
+    },
+    "step2": {
+      "title": "Sign in with Google",
+      "description": "Use any Google account to sign in"
+    },
+    "step3": {
+      "title": "Click \"Get API Key\"",
+      "description": "Find it in the left sidebar"
+    },
+    "step4": {
+      "title": "Create API Key",
+      "description": "Click the button to create your key"
+    },
+    "step5": {
+      "title": "Copy Your Key",
+      "description": "It starts with \"AIza...\""
+    },
+    "inputLabel": "Paste your API key here",
+    "inputPlaceholder": "AIza...",
+    "validateButton": "Validate Key",
+    "validating": "Validating...",
+    "connected": "Connected!",
+    "invalid": "Invalid API key. Please check and try again.",
+    "changeKey": "Change Key",
+    "costEstimate": "Estimated cost: ~$0.50-0.80 per story",
+    "freeInfo": "Google provides a free tier for ~50 stories per day",
+    "safetyInfo": "Your key stays on your device. We never store it on our servers."
+  },
+  "create": {
+    "personalization": {
+      "title": "Tell Us About Your Child",
+      "subtitle": "Create a story just for them",
+      "childName": "Child's Name",
+      "childNamePlaceholder": "Enter name...",
+      "childAge": "Child's Age",
+      "parentName": "Your Name (optional)",
+      "parentNamePlaceholder": "For the dedication page",
+      "ageYears": "years old"
+    },
+    "style": {
+      "title": "Choose Your Art Style",
+      "subtitle": "Pick the perfect look for your story"
+    },
+    "topic": {
+      "title": "Pick a Story Topic",
+      "subtitle": "Choose an adventure or create your own",
+      "customTopic": "Create My Own",
+      "customPlaceholder": "Describe your story idea..."
+    }
+  },
+  "topics": {
+    "vegetables": {
+      "name": "The Vegetable Rebellion",
+      "description": "When veggies demand respect in the kitchen...",
+      "lesson": "Healthy eating"
+    },
+    "dragon": {
+      "name": "My Pet Dragon's Bad Day",
+      "description": "Even magical creatures have tough days",
+      "lesson": "Managing emotions"
+    },
+    "homework": {
+      "name": "The Homework-Eating Monster",
+      "description": "A creature who munches on assignments",
+      "lesson": "Responsibility"
+    },
+    "grandma": {
+      "name": "Grandma's Magical Powers",
+      "description": "Discovering the magic of grandparents",
+      "lesson": "Respecting elders"
+    },
+    "gravity": {
+      "name": "The Day Gravity Went on Strike",
+      "description": "What happens when things stop falling down?",
+      "lesson": "Problem-solving"
+    },
+    "robot": {
+      "name": "Robot's First Day at School",
+      "description": "A mechanical friend learns about friendship",
+      "lesson": "Making friends"
+    },
+    "tooth": {
+      "name": "The Tooth Fairy's Side Job",
+      "description": "What does she do with all those teeth?",
+      "lesson": "Money basics"
+    },
+    "pirates": {
+      "name": "Pirates Who Couldn't Swim",
+      "description": "Seafarers with an unusual problem",
+      "lesson": "Facing fears"
+    },
+    "superhero": {
+      "name": "The Bored Superhero",
+      "description": "When saving the world gets... boring",
+      "lesson": "Finding purpose"
+    },
+    "teddy": {
+      "name": "Time-Traveling Teddy Bear",
+      "description": "Adventures through history with a fluffy friend",
+      "lesson": "Appreciating the present"
+    }
+  },
+  "styles": {
+    "cartoon": {
+      "name": "Whimsical Cartoon",
+      "description": "Bright, playful, and full of character"
+    },
+    "clay": {
+      "name": "Clay World",
+      "description": "Soft, textured like playdough sculptures"
+    },
+    "watercolor": {
+      "name": "Watercolor Dream",
+      "description": "Soft, flowing colors like a painting"
+    },
+    "disney": {
+      "name": "Disney Magic",
+      "description": "Classic animated fairy tale style"
+    },
+    "pixel": {
+      "name": "Pixel Adventure",
+      "description": "Retro video game aesthetics"
+    },
+    "comic": {
+      "name": "Comic Book",
+      "description": "Bold lines and dynamic action"
+    },
+    "ghibli": {
+      "name": "Studio Ghibli",
+      "description": "Soft anime with magical atmosphere"
+    },
+    "minimal": {
+      "name": "Minimalist",
+      "description": "Simple, clean, modern illustrations"
+    }
+  },
+  "loading": {
+    "title": "Creating Your Story",
+    "storyWriting": [
+      "Gnomes are sharpening their quills...",
+      "The story wizard is brewing imagination...",
+      "Catching runaway plot bunnies...",
+      "Sprinkling magic dust on the pages...",
+      "Teaching words to dance together..."
+    ],
+    "characterDesign": [
+      "Teaching sprites about {childName}...",
+      "Mixing the perfect colors...",
+      "Sketching magical blueprints...",
+      "Consulting with the art fairies..."
+    ],
+    "imageGeneration": [
+      "Page {current} of {total}: Dragons posing for portraits...",
+      "Page {current} of {total}: Painting with rainbow brushes...",
+      "Page {current} of {total}: Adding sparkles and wonder..."
+    ],
+    "assembly": [
+      "Binding the magic pages together...",
+      "Adding the finishing touches...",
+      "Your story is almost ready!"
+    ]
+  },
+  "viewer": {
+    "theEnd": "The End",
+    "dedication": "For {childName}, with love from {parentName}",
+    "dedicationNoParent": "A special story for {childName}",
+    "pageOf": "Page {current} of {total}",
+    "downloadPdf": "Download PDF",
+    "downloading": "Preparing PDF...",
+    "shareStory": "Share Story"
+  },
+  "admin": {
+    "title": "Story Gallery",
+    "totalStories": "Total Stories",
+    "filter": "Filter",
+    "filterByLanguage": "By Language",
+    "filterByDate": "By Date",
+    "filterByTopic": "By Topic",
+    "all": "All",
+    "today": "Today",
+    "thisWeek": "This Week",
+    "thisMonth": "This Month",
+    "sortNewest": "Newest First",
+    "sortOldest": "Oldest First",
+    "viewStory": "View",
+    "noStories": "No stories found",
+    "stats": {
+      "english": "English",
+      "ukrainian": "Ukrainian",
+      "popularTopic": "Most Popular Topic"
+    }
+  },
+  "footer": {
+    "credit": "by Dima Levin",
+    "linkedin": "linkedin.com/in/leeevind"
+  },
+  "errors": {
+    "apiKeyRequired": "Please set up your API key first",
+    "generationFailed": "Story generation failed. Please try again.",
+    "networkError": "Network error. Please check your connection.",
+    "invalidInput": "Please check your input and try again."
+  }
+}
