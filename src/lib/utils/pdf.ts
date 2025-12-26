@@ -8,12 +8,49 @@ const PAGE_HEIGHT_MM = 203; // 8 inches
 const MARGIN_MM = 12.7; // 0.5 inch margin
 const BLEED_MM = 3; // Standard bleed
 
+// Load and register Roboto font for Cyrillic support
+async function loadRobotoFont(pdf: jsPDF): Promise<void> {
+  try {
+    // Fetch Roboto Regular
+    const regularResponse = await fetch("/fonts/Roboto-Regular.ttf");
+    if (regularResponse.ok) {
+      const regularBuffer = await regularResponse.arrayBuffer();
+      const regularBase64 = arrayBufferToBase64(regularBuffer);
+      pdf.addFileToVFS("Roboto-Regular.ttf", regularBase64);
+      pdf.addFont("Roboto-Regular.ttf", "Roboto", "normal");
+    }
+
+    // Fetch Roboto Bold
+    const boldResponse = await fetch("/fonts/Roboto-Bold.ttf");
+    if (boldResponse.ok) {
+      const boldBuffer = await boldResponse.arrayBuffer();
+      const boldBase64 = arrayBufferToBase64(boldBuffer);
+      pdf.addFileToVFS("Roboto-Bold.ttf", boldBase64);
+      pdf.addFont("Roboto-Bold.ttf", "Roboto", "bold");
+    }
+  } catch (error) {
+    console.warn("Failed to load Roboto font, falling back to Helvetica:", error);
+  }
+}
+
+function arrayBufferToBase64(buffer: ArrayBuffer): string {
+  let binary = "";
+  const bytes = new Uint8Array(buffer);
+  for (let i = 0; i < bytes.byteLength; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
+}
+
 export async function generateStoryPDF(story: GetStoryResponse): Promise<Blob> {
   const pdf = new jsPDF({
     orientation: "landscape",
     unit: "mm",
     format: [PAGE_WIDTH_MM, PAGE_HEIGHT_MM],
   });
+
+  // Load Roboto font for Cyrillic support
+  await loadRobotoFont(pdf);
 
   const usableWidth = PAGE_WIDTH_MM - MARGIN_MM * 2;
   const usableHeight = PAGE_HEIGHT_MM - MARGIN_MM * 2;
@@ -76,7 +113,7 @@ async function renderCoverPage(
   }
 
   // Title
-  pdf.setFont("helvetica", "bold");
+  pdf.setFont("Roboto", "bold");
   pdf.setFontSize(32);
   pdf.setTextColor(88, 28, 135); // Purple
   const title = story.title || `A Story for ${story.childName}`;
@@ -84,7 +121,7 @@ async function renderCoverPage(
   pdf.text(titleLines, pageWidth / 2, pageHeight - 50, { align: "center" });
 
   // Subtitle
-  pdf.setFont("helvetica", "normal");
+  pdf.setFont("Roboto", "normal");
   pdf.setFontSize(18);
   pdf.setTextColor(107, 33, 168);
   pdf.text(
@@ -170,7 +207,7 @@ async function renderStoryPage(
   pdf.line(margin + 20, textAreaY + 2, pageWidth - margin - 20, textAreaY + 2);
 
   // Story text - large, readable, centered
-  pdf.setFont("times", "normal");
+  pdf.setFont("Roboto", "normal");
   pdf.setFontSize(16); // Large for children
   pdf.setTextColor(50, 50, 50);
 
@@ -187,7 +224,7 @@ async function renderStoryPage(
   // Page number in decorative circle
   pdf.setFillColor(147, 51, 234);
   pdf.circle(pageWidth - margin - 8, pageHeight - margin - 8, 6, "F");
-  pdf.setFont("helvetica", "bold");
+  pdf.setFont("Roboto", "bold");
   pdf.setFontSize(10);
   pdf.setTextColor(255, 255, 255);
   pdf.text(String(page.pageNumber), pageWidth - margin - 8, pageHeight - margin - 6, {
@@ -211,18 +248,13 @@ function renderEndPage(
   pdf.rect(0, pageHeight - 8, pageWidth, 8, "F");
 
   // "The End" title
-  pdf.setFont("times", "bolditalic");
+  pdf.setFont("Roboto", "bold");
   pdf.setFontSize(48);
   pdf.setTextColor(88, 28, 135);
   pdf.text("The End", pageWidth / 2, 60, { align: "center" });
 
-  // Decorative sparkles (using text symbols)
-  pdf.setFontSize(24);
-  pdf.text("✨", pageWidth / 2 - 60, 55);
-  pdf.text("✨", pageWidth / 2 + 55, 55);
-
   // Dedication
-  pdf.setFont("times", "italic");
+  pdf.setFont("Roboto", "normal");
   pdf.setFontSize(20);
   pdf.setTextColor(107, 33, 168);
   const dedication = story.parentName
@@ -232,7 +264,7 @@ function renderEndPage(
 
   // Lesson learned (if available)
   if (story.lesson) {
-    pdf.setFont("helvetica", "normal");
+    pdf.setFont("Roboto", "normal");
     pdf.setFontSize(14);
     pdf.setTextColor(100, 100, 100);
     const lessonText = `Lesson: ${story.lesson}`;
@@ -240,12 +272,8 @@ function renderEndPage(
     pdf.text(lessonLines, pageWidth / 2, 110, { align: "center" });
   }
 
-  // Decorative heart
-  pdf.setFontSize(36);
-  pdf.text("💜", pageWidth / 2, 140, { align: "center" });
-
   // Footer branding
-  pdf.setFont("helvetica", "normal");
+  pdf.setFont("Roboto", "normal");
   pdf.setFontSize(12);
   pdf.setTextColor(150, 150, 150);
   pdf.text("Created with StoryForge AI by Cone Red", pageWidth / 2, pageHeight - 25, { align: "center" });
