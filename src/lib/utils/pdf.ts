@@ -87,76 +87,60 @@ async function renderCoverPage(
   pageHeight: number,
   margin: number
 ): Promise<void> {
-  // Gradient-like background
-  pdf.setFillColor(245, 235, 255);
+  // Soft background
+  pdf.setFillColor(250, 247, 255);
   pdf.rect(0, 0, pageWidth, pageHeight, "F");
 
-  // Decorative top border
-  pdf.setFillColor(147, 51, 234);
-  pdf.rect(0, 0, pageWidth, 8, "F");
-
-  // Cover image if available - positioned higher to leave room for text
+  // Cover image - LARGE, almost full page (the hero!)
   if (story.coverImageUrl) {
     try {
       const imageData = await fetchImageAsBase64(story.coverImageUrl);
       if (imageData) {
-        // Image takes upper ~60% of page
-        const imgWidth = pageWidth - margin * 4;
+        // Image fills most of the page
+        const imgWidth = pageWidth - margin * 2;
         const imgHeight = (imgWidth * 3) / 4; // 4:3 aspect ratio
-        const imgX = (pageWidth - imgWidth) / 2;
-        const imgY = 15;
+        const imgX = margin;
+        const imgY = margin;
+
+        // Subtle shadow behind image
+        pdf.setFillColor(200, 190, 210);
+        pdf.roundedRect(imgX + 2, imgY + 2, imgWidth, imgHeight, 4, 4, "F");
+
+        // Image with rounded corners effect (clip not supported, so we draw border)
         pdf.addImage(imageData, "PNG", imgX, imgY, imgWidth, imgHeight);
+
+        // Decorative frame around image
+        pdf.setDrawColor(147, 51, 234);
+        pdf.setLineWidth(2);
+        pdf.roundedRect(imgX, imgY, imgWidth, imgHeight, 4, 4, "S");
       }
     } catch {
       // Skip if image fails
     }
   }
 
-  // Text area with light background for readability
-  const textAreaY = pageHeight - 65;
-  const textAreaHeight = 58;
-
-  // Light purple background for text readability (matches page theme)
-  pdf.setFillColor(250, 245, 255);
-  pdf.roundedRect(margin * 2, textAreaY, pageWidth - margin * 4, textAreaHeight, 5, 5, "F");
-
-  // Subtle border
-  pdf.setDrawColor(200, 180, 220);
-  pdf.setLineWidth(0.5);
-  pdf.roundedRect(margin * 2, textAreaY, pageWidth - margin * 4, textAreaHeight, 5, 5, "S");
-
-  // Title
-  pdf.setFont("Roboto", "bold");
-  pdf.setFontSize(28);
-  pdf.setTextColor(88, 28, 135); // Purple
-  const title = story.title || `A Story for ${story.childName}`;
-  const titleLines = pdf.splitTextToSize(title, pageWidth - margin * 6);
-  pdf.text(titleLines, pageWidth / 2, textAreaY + 12, { align: "center" });
-
-  // Subtitle
-  pdf.setFont("Roboto", "normal");
-  pdf.setFontSize(14);
-  pdf.setTextColor(107, 33, 168);
-  pdf.text(
-    `A personalized story for ${story.childName}, age ${story.childAge}`,
-    pageWidth / 2,
-    textAreaY + 26,
-    { align: "center" }
-  );
-
-  // From parent
+  // Dedication ribbon at bottom - elegant and minimal
   if (story.parentName) {
-    pdf.setFontSize(12);
-    pdf.setTextColor(80, 80, 80);
-    pdf.text(`With love from ${story.parentName}`, pageWidth / 2, textAreaY + 38, {
+    // Small elegant banner
+    const ribbonY = pageHeight - 28;
+    const ribbonHeight = 18;
+
+    pdf.setFillColor(147, 51, 234); // Purple ribbon
+    pdf.roundedRect(pageWidth / 2 - 60, ribbonY, 120, ribbonHeight, 3, 3, "F");
+
+    pdf.setFont("Roboto", "normal");
+    pdf.setFontSize(11);
+    pdf.setTextColor(255, 255, 255);
+    pdf.text(`With love from ${story.parentName}`, pageWidth / 2, ribbonY + 12, {
       align: "center",
     });
   }
 
-  // Footer branding - below the text box
-  pdf.setFontSize(9);
-  pdf.setTextColor(130, 130, 130);
-  pdf.text("by Cone Red AI • by Dima Levin with love • linkedin.com/in/leeevind", pageWidth / 2, pageHeight - 5, {
+  // Footer branding - very subtle at bottom
+  pdf.setFont("Roboto", "normal");
+  pdf.setFontSize(8);
+  pdf.setTextColor(160, 150, 170);
+  pdf.text("Cone Red AI • linkedin.com/in/leeevind", pageWidth / 2, pageHeight - 4, {
     align: "center",
   });
 }
