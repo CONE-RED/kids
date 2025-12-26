@@ -119,28 +119,47 @@ async function renderCoverPage(
     }
   }
 
-  // Dedication ribbon at bottom - elegant and minimal
-  if (story.parentName) {
-    // Small elegant banner
-    const ribbonY = pageHeight - 28;
-    const ribbonHeight = 18;
+  // Gift tag dedication - the magical "this is for YOU" moment
+  const tagWidth = 140;
+  const tagHeight = 32;
+  const tagX = pageWidth / 2 - tagWidth / 2;
+  const tagY = pageHeight - 42;
 
-    pdf.setFillColor(147, 51, 234); // Purple ribbon
-    pdf.roundedRect(pageWidth / 2 - 60, ribbonY, 120, ribbonHeight, 3, 3, "F");
+  // Tag background with gradient effect (two-tone)
+  pdf.setFillColor(147, 51, 234); // Purple
+  pdf.roundedRect(tagX, tagY, tagWidth, tagHeight, 4, 4, "F");
+
+  // Inner lighter stripe for depth
+  pdf.setFillColor(168, 85, 247); // Lighter purple
+  pdf.roundedRect(tagX + 3, tagY + 3, tagWidth - 6, tagHeight - 6, 2, 2, "F");
+
+  // Dedication text
+  pdf.setFont("Roboto", "bold");
+  pdf.setFontSize(13);
+  pdf.setTextColor(255, 255, 255);
+
+  if (story.parentName) {
+    // "To [Kid], with love from [Parent]" - the gift inscription!
+    pdf.text(`To ${story.childName}`, pageWidth / 2, tagY + 12, { align: "center" });
 
     pdf.setFont("Roboto", "normal");
-    pdf.setFontSize(11);
-    pdf.setTextColor(255, 255, 255);
-    pdf.text(`With love from ${story.parentName}`, pageWidth / 2, ribbonY + 12, {
-      align: "center",
-    });
+    pdf.setFontSize(10);
+    pdf.text(`with love from ${story.parentName}`, pageWidth / 2, tagY + 23, { align: "center" });
+  } else {
+    // Just the kid's name if no parent specified
+    pdf.text(`For ${story.childName}`, pageWidth / 2, tagY + 18, { align: "center" });
   }
 
-  // Footer branding - very subtle at bottom
+  // Small decorative hearts on the sides
+  pdf.setFontSize(10);
+  pdf.text("♥", tagX + 10, tagY + 18, { align: "center" });
+  pdf.text("♥", tagX + tagWidth - 10, tagY + 18, { align: "center" });
+
+  // Footer branding - whisper quiet
   pdf.setFont("Roboto", "normal");
-  pdf.setFontSize(8);
-  pdf.setTextColor(160, 150, 170);
-  pdf.text("Cone Red AI • linkedin.com/in/leeevind", pageWidth / 2, pageHeight - 4, {
+  pdf.setFontSize(7);
+  pdf.setTextColor(180, 170, 190);
+  pdf.text("Cone Red AI • linkedin.com/in/leeevind", pageWidth / 2, pageHeight - 3, {
     align: "center",
   });
 }
