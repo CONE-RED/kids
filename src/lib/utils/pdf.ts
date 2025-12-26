@@ -95,16 +95,16 @@ async function renderCoverPage(
   pdf.setFillColor(147, 51, 234);
   pdf.rect(0, 0, pageWidth, 8, "F");
 
-  // Cover image if available
+  // Cover image if available - positioned higher to leave room for text
   if (story.coverImageUrl) {
     try {
       const imageData = await fetchImageAsBase64(story.coverImageUrl);
       if (imageData) {
-        // Large centered cover image
+        // Image takes upper ~60% of page
         const imgWidth = pageWidth - margin * 4;
         const imgHeight = (imgWidth * 3) / 4; // 4:3 aspect ratio
         const imgX = (pageWidth - imgWidth) / 2;
-        const imgY = 20;
+        const imgY = 15;
         pdf.addImage(imageData, "PNG", imgX, imgY, imgWidth, imgHeight);
       }
     } catch {
@@ -112,38 +112,51 @@ async function renderCoverPage(
     }
   }
 
+  // Text area with light background for readability
+  const textAreaY = pageHeight - 65;
+  const textAreaHeight = 58;
+
+  // Light purple background for text readability (matches page theme)
+  pdf.setFillColor(250, 245, 255);
+  pdf.roundedRect(margin * 2, textAreaY, pageWidth - margin * 4, textAreaHeight, 5, 5, "F");
+
+  // Subtle border
+  pdf.setDrawColor(200, 180, 220);
+  pdf.setLineWidth(0.5);
+  pdf.roundedRect(margin * 2, textAreaY, pageWidth - margin * 4, textAreaHeight, 5, 5, "S");
+
   // Title
   pdf.setFont("Roboto", "bold");
-  pdf.setFontSize(32);
+  pdf.setFontSize(28);
   pdf.setTextColor(88, 28, 135); // Purple
   const title = story.title || `A Story for ${story.childName}`;
-  const titleLines = pdf.splitTextToSize(title, pageWidth - margin * 2);
-  pdf.text(titleLines, pageWidth / 2, pageHeight - 50, { align: "center" });
+  const titleLines = pdf.splitTextToSize(title, pageWidth - margin * 6);
+  pdf.text(titleLines, pageWidth / 2, textAreaY + 12, { align: "center" });
 
   // Subtitle
   pdf.setFont("Roboto", "normal");
-  pdf.setFontSize(18);
+  pdf.setFontSize(14);
   pdf.setTextColor(107, 33, 168);
   pdf.text(
     `A personalized story for ${story.childName}, age ${story.childAge}`,
     pageWidth / 2,
-    pageHeight - 35,
+    textAreaY + 26,
     { align: "center" }
   );
 
   // From parent
   if (story.parentName) {
-    pdf.setFontSize(14);
-    pdf.setTextColor(100, 100, 100);
-    pdf.text(`With love from ${story.parentName}`, pageWidth / 2, pageHeight - 22, {
+    pdf.setFontSize(12);
+    pdf.setTextColor(80, 80, 80);
+    pdf.text(`With love from ${story.parentName}`, pageWidth / 2, textAreaY + 38, {
       align: "center",
     });
   }
 
-  // Footer branding
+  // Footer branding - below the text box
   pdf.setFontSize(9);
-  pdf.setTextColor(150, 150, 150);
-  pdf.text("by Cone Red AI • by Dima Levin with love • linkedin.com/in/leeevind", pageWidth / 2, pageHeight - 8, {
+  pdf.setTextColor(130, 130, 130);
+  pdf.text("by Cone Red AI • by Dima Levin with love • linkedin.com/in/leeevind", pageWidth / 2, pageHeight - 5, {
     align: "center",
   });
 }
