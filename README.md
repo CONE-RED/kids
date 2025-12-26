@@ -4,6 +4,7 @@
 
 StoryForge AI is a magical web app that creates personalized, illustrated children's stories featuring YOUR child as the hero. Because the best stories are the ones where they see themselves saving the day!
 
+[![Live Demo](https://img.shields.io/badge/Live-kids.cone.red-purple)](https://kids.cone.red)
 ![StoryForge AI](https://img.shields.io/badge/Made%20with-Love%20%26%20AI-ff69b4)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Next.js](https://img.shields.io/badge/Next.js-16-black)
@@ -174,7 +175,7 @@ See [LICENSE](LICENSE) for details.
 
 ## 💜 Credits
 
-Created with love by [Dima Levin](https://linkedin.com/in/leeevind)
+Built by [Cone Red](https://cone.red) | Created with love by [Dima Levin](https://linkedin.com/in/leeevind)
 
 Built for parents who believe that the best gift you can give your child is your time.
 
