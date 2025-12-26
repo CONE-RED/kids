@@ -4,7 +4,7 @@ import { createGeminiClient } from "@/lib/gemini/client";
 import { generateText } from "@/lib/gemini/generate-text";
 import { generateImage } from "@/lib/gemini/generate-image";
 import { getPrompt, getArtStyleDescription, fillPromptTemplate } from "@/config/prompts";
-import { parseStoryResponse, calculateWordCount } from "@/lib/utils/chunking";
+import { parseStoryResponse, calculateWordCount, buildCharactersDescription } from "@/lib/utils/chunking";
 import { getTopicLesson } from "@/lib/constants/topics";
 import { createStory, addImage, getUniquenessTagsByTopic } from "@/lib/db/queries";
 import fs from "fs/promises";
@@ -60,10 +60,15 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     const parsedStory = parseStoryResponse(storyResponse);
     console.log("[Story] Parsed title:", parsedStory.title);
+    console.log("[Story] Story world:", parsedStory.storyWorld);
+    console.log("[Story] Characters:", parsedStory.characters.map(c => c.name));
     console.log("[Story] Parsed scenes count:", parsedStory.scenes.length);
-    console.log("[Story] Scenes:", parsedStory.scenes.map(s => ({ page: s.pageNumber, textLen: s.text.length })));
+    console.log("[Story] Scenes:", parsedStory.scenes.map(s => ({ page: s.pageNumber, textLen: s.text.length, chars: s.charactersInScene })));
 
     const wordCount = calculateWordCount(parsedStory.scenes);
+
+    // Build all characters description for cover
+    const allCharactersDescription = buildCharactersDescription(parsedStory.characters, []);
 
     // Create story directory
     const storyId = crypto.randomUUID();
@@ -94,7 +99,7 @@ export async function POST(request: Request): Promise<NextResponse> {
       console.error("Character sheet generation failed:", err);
     }
 
-    // Generate cover image (with character reference for consistency)
+    // Generate cover image (with character reference and story context for consistency)
     let coverImageUrl = "";
     try {
       const coverPrompt = fillPromptTemplate(getPrompt("coverImage", locale), {
@@ -104,6 +109,9 @@ export async function POST(request: Request): Promise<NextResponse> {
         artStyle,
         artStyleDescription: getArtStyleDescription(artStyle),
         childAppearance: childAppearance || "",
+        storySetting: parsedStory.storyWorld.setting,
+        storyVisualStyle: parsedStory.storyWorld.visualStyle,
+        charactersDescription: allCharactersDescription,
       });
 
       console.log("[Story] Generating cover image...");
@@ -118,16 +126,25 @@ export async function POST(request: Request): Promise<NextResponse> {
       console.error("Cover generation failed:", err);
     }
 
-    // Generate page images (all with character reference for consistency)
+    // Generate page images (all with character reference and story context for consistency)
     const pages: { pageNumber: number; text: string; imageUrl: string }[] = [];
 
     for (const scene of parsedStory.scenes) {
+      // Build scene-specific characters description
+      const sceneCharactersDescription = buildCharactersDescription(
+        parsedStory.characters,
+        scene.charactersInScene
+      );
+
       const pagePrompt = fillPromptTemplate(getPrompt("pageImage", locale), {
         childName,
         sceneDescription: scene.sceneDescription,
         artStyle,
         artStyleDescription: getArtStyleDescription(artStyle),
         childAppearance: childAppearance || "",
+        storySetting: parsedStory.storyWorld.setting,
+        storyVisualStyle: parsedStory.storyWorld.visualStyle,
+        charactersDescription: sceneCharactersDescription,
       });
 
       let imageUrl = "";

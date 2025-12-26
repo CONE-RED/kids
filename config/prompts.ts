@@ -27,17 +27,30 @@ Previous stories on this topic used these elements (AVOID):
 - Age-appropriate vocabulary for a {childAge} year old
 - Each scene should be visually distinct and illustratable
 - End with a satisfying conclusion that reinforces the lesson
+- IMPORTANT: Keep the story world and characters consistent throughout all scenes
 </requirements>
 
 <output_format>
 Respond in JSON format:
 {
   "title": "Story title",
+  "storyWorld": {
+    "setting": "Primary location/world description (e.g., 'Medieval castle kingdom with stone walls, dragon banners, torchlit halls')",
+    "visualStyle": "Consistent visual elements that should appear throughout (e.g., 'warm golden lighting, medieval decorations, wooden furniture')"
+  },
+  "characters": [
+    {
+      "name": "Character name",
+      "role": "knight/wizard/friend/etc",
+      "appearance": "Detailed visual description (e.g., 'adult male, brown beard, silver plate armor with blue feather on helmet, friendly smile')"
+    }
+  ],
   "scenes": [
     {
       "pageNumber": 1,
       "text": "Story text for this page (80-120 words)",
-      "sceneDescription": "Visual description for illustration (what to draw)"
+      "sceneDescription": "Visual description for illustration (what to draw)",
+      "charactersInScene": ["Character name 1", "Character name 2"]
     }
   ],
   "lesson": "The embedded lesson",
@@ -73,17 +86,30 @@ Respond in JSON format:
 - Кожна сцена повинна бути візуально унікальною та придатною для ілюстрування
 - Завершіть задовільним закінченням, що підкріплює урок
 - Пишіть ТІЛЬКИ українською мовою, природною та правильною
+- ВАЖЛИВО: Зберігайте послідовність світу історії та персонажів у всіх сценах
 </вимоги>
 
 <формат_відповіді>
 Відповідайте у форматі JSON:
 {
   "title": "Назва історії",
+  "storyWorld": {
+    "setting": "Опис основної локації/світу (напр., 'Середньовічне королівство з кам'яними стінами, прапорами з драконами, факельними залами')",
+    "visualStyle": "Послідовні візуальні елементи (напр., 'тепле золотисте освітлення, середньовічні прикраси, дерев'яні меблі')"
+  },
+  "characters": [
+    {
+      "name": "Ім'я персонажа",
+      "role": "лицар/чарівник/друг/тощо",
+      "appearance": "Детальний візуальний опис англійською для AI (e.g., 'adult male, brown beard, silver plate armor with blue feather on helmet')"
+    }
+  ],
   "scenes": [
     {
       "pageNumber": 1,
       "text": "Текст історії для цієї сторінки (80-120 слів)",
-      "sceneDescription": "Візуальний опис для ілюстрації (що малювати) - англійською для AI"
+      "sceneDescription": "Візуальний опис для ілюстрації (що малювати) - англійською для AI",
+      "charactersInScene": ["Ім'я персонажа 1", "Ім'я персонажа 2"]
     }
   ],
   "lesson": "Вбудований урок",
@@ -137,13 +163,26 @@ This reference sheet will be used to maintain character consistency across 10+ s
   pageImage: {
     en: `Create a children's book illustration in {artStyle} style.
 
-Scene: {sceneDescription}
+<story_world>
+Setting: {storySetting}
+Visual Style: {storyVisualStyle}
+</story_world>
 
-Main character: {childName} (reference image attached - maintain EXACT same appearance)
+<characters_in_scene>
+{charactersDescription}
+</characters_in_scene>
+
+<scene>
+{sceneDescription}
+</scene>
+
+Main child character: {childName} (reference image attached - maintain EXACT same appearance)
 {childAppearance}
 
 Important Requirements:
-- Match the character EXACTLY to the reference image
+- Match ALL characters EXACTLY to their descriptions above
+- Match the child character EXACTLY to the reference image
+- Keep the environment consistent with the story world setting
 - {artStyleDescription} aesthetic throughout
 - Warm, child-friendly, engaging imagery
 - No text in the image
@@ -152,13 +191,26 @@ Important Requirements:
 
     uk: `Створіть ілюстрацію для дитячої книги у стилі {artStyle}.
 
-Сцена: {sceneDescription}
+<світ_історії>
+Локація: {storySetting}
+Візуальний стиль: {storyVisualStyle}
+</світ_історії>
 
-Головний персонаж: {childName} (референс-зображення додано - збережіть ТОЧНО такий самий вигляд)
+<персонажі_в_сцені>
+{charactersDescription}
+</персонажі_в_сцені>
+
+<сцена>
+{sceneDescription}
+</сцена>
+
+Головний персонаж-дитина: {childName} (референс-зображення додано - збережіть ТОЧНО такий самий вигляд)
 {childAppearance}
 
 Важливі вимоги:
-- Персонаж повинен ТОЧНО відповідати референс-зображенню
+- Усі персонажі повинні ТОЧНО відповідати їх описам вище
+- Персонаж-дитина повинен ТОЧНО відповідати референс-зображенню
+- Зберігайте послідовність середовища з локацією світу історії
 - Естетика {artStyleDescription} по всьому зображенню
 - Тепле, дитячо-дружнє, захоплююче зображення
 - Без тексту на зображенні
@@ -170,13 +222,24 @@ Important Requirements:
     en: `Create a captivating children's book cover illustration in {artStyle} style.
 
 Title: {title}
-Main Character: {childName} (reference image attached - maintain EXACT same appearance)
-{childAppearance}
 Theme: {topic}
+
+<story_world>
+Setting: {storySetting}
+Visual Style: {storyVisualStyle}
+</story_world>
+
+<main_characters>
+{charactersDescription}
+</main_characters>
+
+Main child character: {childName} (reference image attached - maintain EXACT same appearance)
+{childAppearance}
 
 Requirements:
 - Exciting, dynamic composition that captures the story's essence
-- Main character prominently featured
+- Main characters prominently featured with EXACT appearances as described
+- Environment matches the story world setting
 - {artStyleDescription} aesthetic
 - Leave space at top for title text
 - Warm, inviting colors that appeal to children
@@ -185,13 +248,24 @@ Requirements:
     uk: `Створіть захоплюючу обкладинку для дитячої книги у стилі {artStyle}.
 
 Назва: {title}
-Головний персонаж: {childName} (референс-зображення додано - збережіть ТОЧНО такий самий вигляд)
-{childAppearance}
 Тема: {topic}
+
+<світ_історії>
+Локація: {storySetting}
+Візуальний стиль: {storyVisualStyle}
+</світ_історії>
+
+<головні_персонажі>
+{charactersDescription}
+</головні_персонажі>
+
+Головний персонаж-дитина: {childName} (референс-зображення додано - збережіть ТОЧНО такий самий вигляд)
+{childAppearance}
 
 Вимоги:
 - Захоплююча, динамічна композиція, що передає суть історії
-- Головний персонаж на видному місці
+- Головні персонажі на видному місці з ТОЧНИМИ описами як вказано
+- Середовище відповідає локації світу історії
 - Естетика {artStyleDescription}
 - Залиште місце вгорі для тексту назви
 - Теплі, привітні кольори, що подобаються дітям
