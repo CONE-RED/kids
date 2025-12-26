@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
@@ -24,7 +24,7 @@ interface Stats {
   topTopics: { topic: string; count: number }[];
 }
 
-export default function AdminPage(): React.ReactElement {
+function AdminContent(): React.ReactElement {
   const searchParams = useSearchParams();
   const secret = searchParams.get("secret");
 
@@ -209,5 +209,19 @@ function StoryCard({ story }: { story: Story }): React.ReactElement {
         </Link>
       </div>
     </div>
+  );
+}
+
+export default function AdminPage(): React.ReactElement {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+          <div className="text-4xl animate-bounce">📚</div>
+        </div>
+      }
+    >
+      <AdminContent />
+    </Suspense>
   );
 }
