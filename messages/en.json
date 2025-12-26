@@ -73,7 +73,10 @@
       "childAge": "Child's Age",
       "parentName": "Your Name (optional)",
       "parentNamePlaceholder": "For the dedication page",
-      "ageYears": "years old"
+      "ageYears": "years old",
+      "childAppearance": "Describe Your Child (optional)",
+      "childAppearancePlaceholder": "E.g., curly brown hair, big green eyes, loves wearing dinosaur t-shirts, freckles on nose...",
+      "childAppearanceTip": "Help us make the story character look just like your child!"
     },
     "style": {
       "title": "Choose Your Art Style",

@@ -11,8 +11,16 @@ export default function PersonalizationPage(): React.ReactElement {
   const tCommon = useTranslations("common");
   const router = useRouter();
 
-  const { childName, childAge, parentName, setChildName, setChildAge, setParentName } =
-    useCreationStore();
+  const {
+    childName,
+    childAge,
+    parentName,
+    childAppearance,
+    setChildName,
+    setChildAge,
+    setParentName,
+    setChildAppearance,
+  } = useCreationStore();
   const { isKeyValidated } = useSettingsStore();
 
   useEffect(() => {
@@ -83,6 +91,22 @@ export default function PersonalizationPage(): React.ReactElement {
               className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
               maxLength={30}
             />
+          </div>
+
+          {/* Child Appearance - Optional personalization */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              {t("childAppearance")}
+            </label>
+            <textarea
+              value={childAppearance}
+              onChange={(e) => setChildAppearance(e.target.value)}
+              placeholder={t("childAppearancePlaceholder")}
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+              rows={3}
+              maxLength={200}
+            />
+            <p className="mt-1 text-xs text-gray-500">{t("childAppearanceTip")}</p>
           </div>
 
           <button

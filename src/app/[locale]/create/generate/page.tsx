@@ -13,7 +13,7 @@ export default function GeneratePage(): React.ReactElement {
   const router = useRouter();
   const locale = useLocale() as "en" | "uk";
 
-  const { childName, childAge, parentName, artStyle, topic, customTopic, isCustomTopic, reset } =
+  const { childName, childAge, parentName, childAppearance, artStyle, topic, customTopic, isCustomTopic, reset } =
     useCreationStore();
   const { apiKey } = useSettingsStore();
 
@@ -44,6 +44,7 @@ export default function GeneratePage(): React.ReactElement {
             childName,
             childAge,
             parentName: parentName || undefined,
+            childAppearance: childAppearance || undefined,
             topic: isCustomTopic ? customTopic : topic,
             artStyle,
             locale,

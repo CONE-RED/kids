@@ -97,6 +97,7 @@ Respond in JSON format:
 
 Character: {childName}, a {childAge}-year-old child
 Art Style: {artStyle}
+{childAppearance}
 
 Show the character in these poses on a single image:
 - Full body front view (center, largest)
@@ -116,6 +117,7 @@ This reference sheet will be used to maintain character consistency across 10+ s
 
 Персонаж: {childName}, дитина {childAge} років
 Стиль: {artStyle}
+{childAppearance}
 
 Покажіть персонажа в таких позах на одному зображенні:
 - Повний зріст, вигляд спереду (центр, найбільший)
@@ -138,6 +140,7 @@ This reference sheet will be used to maintain character consistency across 10+ s
 Scene: {sceneDescription}
 
 Main character: {childName} (reference image attached - maintain EXACT same appearance)
+{childAppearance}
 
 Important Requirements:
 - Match the character EXACTLY to the reference image
@@ -152,6 +155,7 @@ Important Requirements:
 Сцена: {sceneDescription}
 
 Головний персонаж: {childName} (референс-зображення додано - збережіть ТОЧНО такий самий вигляд)
+{childAppearance}
 
 Важливі вимоги:
 - Персонаж повинен ТОЧНО відповідати референс-зображенню
@@ -167,6 +171,7 @@ Important Requirements:
 
 Title: {title}
 Main Character: {childName} (reference image attached - maintain EXACT same appearance)
+{childAppearance}
 Theme: {topic}
 
 Requirements:
@@ -181,6 +186,7 @@ Requirements:
 
 Назва: {title}
 Головний персонаж: {childName} (референс-зображення додано - збережіть ТОЧНО такий самий вигляд)
+{childAppearance}
 Тема: {topic}
 
 Вимоги:

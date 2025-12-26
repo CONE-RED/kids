@@ -14,6 +14,7 @@ const schema = z.object({
   childName: z.string().min(1).max(30),
   childAge: z.number().min(2).max(15),
   parentName: z.string().optional(),
+  childAppearance: z.string().max(200).optional(),
   topic: z.string().min(1),
   artStyle: z.string().min(1),
   locale: z.enum(["en", "uk"]),
@@ -31,7 +32,7 @@ export async function POST(request: Request): Promise<NextResponse> {
       return NextResponse.json({ error: "Invalid request data" }, { status: 400 });
     }
 
-    const { childName, childAge, parentName, topic, artStyle, locale, apiKey } = result.data;
+    const { childName, childAge, parentName, childAppearance, topic, artStyle, locale, apiKey } = result.data;
 
     const client = createGeminiClient(apiKey);
 
@@ -75,6 +76,7 @@ export async function POST(request: Request): Promise<NextResponse> {
       childAge,
       artStyle,
       artStyleDescription: getArtStyleDescription(artStyle),
+      childAppearance: childAppearance || "",
     });
 
     let characterSheetUrl = "";
@@ -101,6 +103,7 @@ export async function POST(request: Request): Promise<NextResponse> {
         topic,
         artStyle,
         artStyleDescription: getArtStyleDescription(artStyle),
+        childAppearance: childAppearance || "",
       });
 
       console.log("[Story] Generating cover image...");
@@ -124,6 +127,7 @@ export async function POST(request: Request): Promise<NextResponse> {
         sceneDescription: scene.sceneDescription,
         artStyle,
         artStyleDescription: getArtStyleDescription(artStyle),
+        childAppearance: childAppearance || "",
       });
 
       let imageUrl = "";
