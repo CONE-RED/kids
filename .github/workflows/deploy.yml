@@ -20,20 +20,14 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            # Navigate to the project directory
             cd /var/www/kids-app
             
-            # Pull the latest changes
             git pull origin main
-            
-            # Install dependencies
+
             npm install
             
-            # Sync the database (per your local workflow)
             npm run db:push
             
-            # Build the production application
             npm run build
             
-            # Restart the app in PM2 to apply changes
             pm2 restart kids-app
